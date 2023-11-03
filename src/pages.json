@@ -1,19 +1,26 @@
 {
   "pages": [
     {
-      "path": "pages/Login/Login",
+      "path": "pages/login/login",
       "style": {
         "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/authorize/authorize",
+      "style": {
+        "navigationBarTitleText": "授权登录",
+        "navigationStyle": "custom"
       }
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#1356f7",
     "backgroundColor": "#F8F8F8",
-    "app-plus": {
-      "titleView": false
+    "h5": {
+      "titleNView": false
     }
   },
   "easycom": {
