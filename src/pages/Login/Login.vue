@@ -1,18 +1,22 @@
 <template>
   <view class="login_page">
-    <image class="backImg" src="@/static/images/login/backImg.png" />
-
-    <view class="title">现场监管移动服务平台</view>
+    <view class="backImg_container">
+      <image
+        class="icon_logo"
+        src="@/static/logo_white.png"
+        mode="scaleToFill"
+      />
+    </view>
 
     <view class="input_container">
       <view class="input_item">
-        <text class="label">账号</text>
+        <text class="label">手机号</text>
         <uni-easyinput
-          v-model="state.userInfo"
-          type="text"
+          v-model="state.phone"
+          type="number"
           :styles="userInfoStyles"
           placeholderStyle="font-size: 28rpx;"
-          placeholder="请输入账号"
+          placeholder="请输入手机号"
           :suffixIcon="suffixIcon"
         />
       </view>
@@ -28,23 +32,28 @@
         />
       </view>
 
-      <button type="default" @click="toLogin">登录</button>
+      <button type="default" @click="toLogin" hover-class="btn_hover">
+        登录
+      </button>
     </view>
-
-    <view class="footer">技术支持：广州粤建三和软件股份有限公司</view>
   </view>
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { appStore } from "@/store/index.js";
+import { computed, getCurrentInstance, ref } from "vue";
+
+const regPhone = /^1[3-9]{1}[0-9]{9}$/;
+const store = appStore();
+const _this = getCurrentInstance().appContext.config.globalProperties;
 const state = ref({
-  userInfo: "",
+  phone: "",
   password: "",
 });
 
 const userInfoStyles = computed(() => {
   return {
-    borderColor: state.value.userInfo ? "#347bef" : "#ccc",
+    borderColor: state.value.phone ? "#347bef" : "#ccc",
     backgroundColor: "#fff",
   };
 });
@@ -55,33 +64,63 @@ const passwordStyles = computed(() => {
   };
 });
 const suffixIcon = computed(() => {
-  return state.value.userInfo.length >= 6 ? "checkmarkempty" : "";
+  return regPhone.test(state.value.phone) ? "checkmarkempty" : "";
 });
 
 // 点击登录按钮
 const toLogin = () => {
+  if (!handleCheckInfo()) return;
+
+  _this.$api.PhoneLogin(state.value).then((res) => {
+    if (res.code == 200) {
+      const { token, profile, cookie } = res;
+      store.setToken(token);
+      store.setCookie(cookie);
+      store.setUserInfo(profile);
+
+      uni.switchTab({
+        url: "../my/my",
+        success: () => {
+          _this.$message({
+            title: "登录成功！",
+            icon: "success",
+          });
+        },
+      });
+    }
+    console.log(res, "res");
+  });
+};
+
+// 校验登录信息
+const handleCheckInfo = () => {
   const tips = {
-    userInfo: "请输入账号",
+    phone: "请输入手机号",
     password: "请输入密码",
   };
 
   for (let key in tips) {
     if (!state.value[key]) {
-      uni.showToast({
+      _this.$message({
         title: tips[key],
-        icon: "none",
       });
-      return;
+      return false;
     }
   }
 
-  if (state.value.userInfo.length < 6) {
-    uni.showToast({
-      title: "请输入正确的账号",
-      icon: "none",
+  if (!regPhone.test(state.value.phone)) {
+    _this.$message({
+      title: "请输入正确的手机号",
     });
-    return;
+    return false;
+  } else if (state.value.password.length < 6) {
+    _this.$message({
+      title: "请输入正确的密码",
+    });
+    return false;
   }
+
+  return true;
 };
 </script>
 
@@ -91,28 +130,30 @@ const toLogin = () => {
   width: 100vw;
   height: 100vh;
 
-  .backImg {
-    z-index: -1;
+  .backImg_container {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-  }
+    top: 100rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120rpx;
+    height: 120rpx;
+    padding: 16rpx;
+    border-radius: 50%;
+    background-color: red;
 
-  .title {
-    color: #333;
-    font-size: 45rpx;
-    font-weight: bold;
-    width: 100vw;
-    padding-top: 200rpx;
-    text-align: center;
-    letter-spacing: 2rpx;
+    .icon_logo {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .input_container {
+    position: absolute;
+    top: 300rpx;
+    left: 50%;
+    transform: translateX(-50%);
     width: 600rpx;
-    margin: 100rpx auto 0;
+    margin: 0 auto;
 
     .input_item {
       width: 100%;
@@ -129,21 +170,13 @@ const toLogin = () => {
 
     button {
       color: #fff;
+      font-size: 36rpx;
       height: 80rpx;
       line-height: 80rpx;
       border-radius: 80rpx;
-      background-color: #347bef;
+      letter-spacing: 8rpx;
+      background-color: #ff0000;
     }
-  }
-
-  .footer {
-    position: absolute;
-    left: 50%;
-    bottom: 40rpx;
-    transform: translateX(-50%);
-    color: #999;
-    font-size: 28rpx;
-    white-space: nowrap;
   }
 }
 
@@ -152,6 +185,9 @@ const toLogin = () => {
   border-radius: 40rpx;
 }
 :deep(.uni-icons) {
-  color: #347bef !important;
+  color: #ff0000 !important;
+}
+.btn_hover {
+  opacity: 0.8;
 }
 </style>

@@ -19,3 +19,7 @@ dist
 *.njsproj
 *.sln
 *.sw?
+src/static/images/tabBar/collect_active.png
+src/static/images/tabBar/collect_default.png
+src/static/images/tabBar/history_active.png
+src/static/images/tabBar/history_default.png

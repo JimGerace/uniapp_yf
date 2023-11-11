@@ -44,6 +44,6 @@ page,
 html,
 body {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   font-size: 32rpx;
 }

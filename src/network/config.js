@@ -1,10 +1,10 @@
-// const baseURL = process.env.VITE_BASE_URL;
 import { appStore } from "@/store/index.js";
-const baseURL = import.meta.env.VITE_BASE_URL;
+const baseURL =
+  import.meta.env.MODE === "h5" ? "/dev" : import.meta.env.VITE_BASE_URL;
 
 const request = (config) => {
   const store = appStore();
-  const { url, method, data, hideLoading, noAuth } = config;
+  const { url, method, data, hideLoading } = config;
 
   let loading = uni.showLoading({ title: "加载中..." });
   hideLoading && (loading = null);
@@ -13,9 +13,7 @@ const request = (config) => {
     "Content-Type": "application/json;charset=UTF-8",
     Authorization: store.token,
   };
-
-  noAuth && delete header.Authorization;
-
+  console.log(baseURL, "baseURL");
   return new Promise((resolve, reject) => {
     uni.request({
       url: baseURL + url,

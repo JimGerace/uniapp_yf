@@ -5,7 +5,7 @@ import { resolve } from "path";
 export default defineConfig(({ mode }) => {
   const envConfig = loadEnv(mode, "./");
   return {
-    base: "/h5",
+    base: "/",
     plugins: [uni()],
     resolve: {
       alias: {
@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       host: "0.0.0.0",
-      port: 9805,
+      port: 8902,
       proxy: {
         "/dev": {
           target: envConfig.VITE_BASE_URL,

@@ -4,6 +4,7 @@ export const appStore = defineStore("appStore", {
     return {
       userInfo: uni.getStorageSync("userInfo") || {},
       token: uni.getStorageSync("token") || null,
+      cookie: uni.getStorageSync("cookie") || null,
     };
   },
   actions: {
@@ -14,6 +15,10 @@ export const appStore = defineStore("appStore", {
     setToken(data) {
       this.token = data;
       uni.setStorageSync("token", data);
+    },
+    setCookie(data) {
+      this.cookie = data;
+      uni.setStorageSync("cookie", data);
     },
   },
 });
