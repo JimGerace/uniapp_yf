@@ -10,3 +10,22 @@ export const menulist = [
     path: "/subPackages/recently/recently",
   },
 ];
+
+export const cloundMenuList = [
+  {
+    name: "下一首播放",
+    icon: "redo",
+  },
+  {
+    name: "歌手",
+    icon: "staff",
+  },
+  {
+    name: "下载",
+    icon: "cloud-download",
+  },
+  {
+    name: "删除",
+    icon: "trash",
+  },
+];

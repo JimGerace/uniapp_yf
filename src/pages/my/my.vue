@@ -116,7 +116,7 @@ const toPage = (url) => {
   position: relative;
   width: 100%;
   height: 100%;
-  padding-top: 80rpx;
+  padding-top: 100rpx;
   background-color: #f2f2f2;
 
   .search_container {
@@ -124,8 +124,10 @@ const toPage = (url) => {
     position: fixed;
     top: 0;
     left: 0;
+    display: flex;
+    align-items: center;
     width: 100%;
-    height: 90rpx;
+    height: 110rpx;
     padding: 0 24rpx;
     background-color: #fff;
     border-bottom: 2rpx solid #ddd;
