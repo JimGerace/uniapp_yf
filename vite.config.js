@@ -15,6 +15,8 @@ export default defineConfig(({ mode }) => {
     server: {
       host: "0.0.0.0",
       port: 8902,
+      open: true,
+      cors: true,
       proxy: {
         "/dev": {
           target: envConfig.VITE_BASE_URL,
@@ -26,12 +28,21 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      assetsDir: "static/img/",
+      target: "modules",
+      emptyOutDir: true,
+      assetsDir: "assets",
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
       rollupOptions: {
         output: {
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
+          chunkFileNames: "js/[name].[hash].js",
+          entryFileNames: "js/[name].[hash].js",
+          assetFileNames: "[ext]/[name].[hash].[ext]",
         },
       },
     },

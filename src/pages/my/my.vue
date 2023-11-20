@@ -76,7 +76,6 @@ import { menulist } from "@/utils/static.js";
 import { appStore } from "@/store/index.js";
 import { computed, onMounted, getCurrentInstance, ref } from "vue";
 import NoData from "@/components/NoData/index.vue";
-import { uni } from "@dcloudio/uni-h5";
 
 const store = appStore();
 const _this = getCurrentInstance().appContext.config.globalProperties;

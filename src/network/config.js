@@ -13,7 +13,7 @@ const request = (config) => {
     "Content-Type": "application/json;charset=UTF-8",
     Authorization: store.token,
   };
-  console.log(baseURL, "baseURL");
+
   return new Promise((resolve, reject) => {
     uni.request({
       url: baseURL + url,
