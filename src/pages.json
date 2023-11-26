@@ -78,6 +78,17 @@
           }
         }
       ]
+    },
+    {
+      "root": "subPackages/user",
+      "pages": [
+        {
+          "path": "user",
+          "style": {
+            "navigationBarTitleText": "用户信息"
+          }
+        }
+      ]
     }
   ]
 }

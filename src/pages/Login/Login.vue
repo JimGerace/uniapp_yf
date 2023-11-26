@@ -175,7 +175,7 @@ const handleCheckInfo = () => {
       line-height: 80rpx;
       border-radius: 80rpx;
       letter-spacing: 8rpx;
-      background-color: #ff0000;
+      background-color: #fe473d;
     }
   }
 }
@@ -185,7 +185,7 @@ const handleCheckInfo = () => {
   border-radius: 40rpx;
 }
 :deep(.uni-icons) {
-  color: #ff0000 !important;
+  color: #fe473d !important;
 }
 .btn_hover {
   opacity: 0.8;

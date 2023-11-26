@@ -11,7 +11,10 @@
 
     <view class="container">
       <!-- 用户信息 -->
-      <view class="userinfo_container">
+      <view
+        class="userinfo_container"
+        @click="toPage('/subPackages/user/user')"
+      >
         <view class="userinfo_box">
           <image
             class="icon_user"

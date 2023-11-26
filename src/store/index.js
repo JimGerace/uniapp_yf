@@ -20,5 +20,11 @@ export const appStore = defineStore("appStore", {
       this.cookie = data;
       uni.setStorageSync("cookie", data);
     },
+    resetState() {
+      this.userInfo = {};
+      this.token = null;
+      this.cookie = null;
+      uni.clearStorageSync();
+    },
   },
 });

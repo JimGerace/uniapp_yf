@@ -18,7 +18,17 @@ const CloudList = (data) => {
   });
 };
 
+// 最近播放列表
+const RecentList = (data) => {
+  return api({
+    url: "/record/recent/song",
+    method: "GET",
+    data,
+  });
+};
+
 export default {
   PlayList,
   CloudList,
+  RecentList,
 };

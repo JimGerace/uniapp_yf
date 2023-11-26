@@ -167,4 +167,8 @@ const toShowPopup = (val) => {
     }
   }
 }
+
+:deep(.noData_container) {
+  margin-top: 200rpx;
+}
 </style>
