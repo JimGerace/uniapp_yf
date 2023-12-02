@@ -100,6 +100,17 @@
           }
         }
       ]
+    },
+    {
+      "root": "subPackages/search",
+      "pages": [
+        {
+          "path": "search",
+          "style": {
+            "navigationBarTitleText": "搜索"
+          }
+        }
+      ]
     }
   ]
 }

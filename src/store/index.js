@@ -5,6 +5,7 @@ export const appStore = defineStore("appStore", {
       userInfo: uni.getStorageSync("userInfo") || {},
       token: uni.getStorageSync("token") || null,
       cookie: uni.getStorageSync("cookie") || null,
+      searchHistory: uni.getStorageSync("searchHistory") || [],
     };
   },
   actions: {
@@ -20,10 +21,15 @@ export const appStore = defineStore("appStore", {
       this.cookie = data;
       uni.setStorageSync("cookie", data);
     },
+    setSearchHistory(data) {
+      this.searchHistory = data;
+      uni.setStorageSync("searchHistory", data);
+    },
     resetState() {
       this.userInfo = {};
       this.token = null;
       this.cookie = null;
+      this.searchHistory = [];
       uni.clearStorageSync();
     },
   },

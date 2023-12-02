@@ -6,6 +6,7 @@ const PlayList = (data) => {
     url: "/user/playlist",
     method: "GET",
     data,
+    hideLoading: true,
   });
 };
 
@@ -47,10 +48,42 @@ const TrackAll = (data) => {
   });
 };
 
+// 默认搜索关键词
+const SearchDefault = (data) => {
+  return api({
+    url: "/search/default",
+    method: "GET",
+    data,
+    hideLoading: true,
+  });
+};
+
+// 热搜列表(简略)
+const SearchHot = (data) => {
+  return api({
+    url: "/search/hot",
+    method: "GET",
+    data,
+  });
+};
+
+// 搜索建议
+const SearchSuggest = (data) => {
+  return api({
+    url: "/search/suggest",
+    method: "GET",
+    data,
+    hideLoading: true,
+  });
+};
+
 export default {
   PlayList,
   CloudList,
   RecentList,
   PlayDetail,
   TrackAll,
+  SearchDefault,
+  SearchHot,
+  SearchSuggest,
 };

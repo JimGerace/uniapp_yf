@@ -3,8 +3,13 @@
     <!-- 搜索栏目 -->
     <view class="search_container">
       <view class="search_box">
-        <uni-icons type="search" size="25"></uni-icons>
-        <text class="placeholder">搜索</text>
+        <view
+          class="search_item"
+          @click="toPage('/subPackages/search/search?key=' + searchKey)"
+        >
+          <uni-icons type="search" size="25"></uni-icons>
+          <text class="placeholder">{{ searchKey }}</text>
+        </view>
         <uni-icons type="scan" size="25"></uni-icons>
       </view>
     </view>
@@ -89,6 +94,7 @@ const store = appStore();
 const _this = getCurrentInstance().appContext.config.globalProperties;
 
 const playList = ref([]);
+const searchKey = ref(null);
 const userInfo = computed(() => {
   return store.userInfo;
 });
@@ -97,16 +103,36 @@ const showCollectList = computed(() => {
 });
 
 onMounted(() => {
-  getUserPlayList();
+  init();
 });
+
+// 初始化
+const init = () => {
+  uni.showLoading({ title: "加载中..." });
+  Promise.all([getUserPlayList(), getSearchDefault()])
+    .then((res) => {
+      const [userRes, searchRes] = res;
+      if (userRes.code == 200) {
+        playList.value = userRes.playlist;
+      }
+
+      if (searchRes.code == 200) {
+        searchKey.value = searchRes.data.realkeyword;
+      }
+    })
+    .finally(() => {
+      uni.hideLoading();
+    });
+};
 
 // 获取歌单列表
 const getUserPlayList = () => {
-  _this.$api.PlayList({ uid: userInfo.value.userId }).then((res) => {
-    if (res.code == 200) {
-      playList.value = res.playlist;
-    }
-  });
+  return _this.$api.PlayList({ uid: userInfo.value.userId });
+};
+
+// 获取搜索默认值
+const getSearchDefault = () => {
+  return _this.$api.SearchDefault();
 };
 
 // 进入菜单选项页面
@@ -148,12 +174,18 @@ const toPage = (url) => {
       border-radius: 50rpx;
       border: 2rpx solid #eee;
       background-color: #f2f2f2;
-    }
 
-    .placeholder {
-      flex: 1;
-      color: #999;
-      padding: 0 12rpx;
+      .search_item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        color: #999;
+        padding: 0 12rpx;
+
+        .placeholder {
+          margin-left: 12rpx;
+        }
+      }
     }
   }
 

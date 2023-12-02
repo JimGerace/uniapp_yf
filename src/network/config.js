@@ -28,6 +28,7 @@ const request = (config) => {
           uni.showToast({ title: errMsg, icon: "none", duration: 2000 });
         } else if (data.code != 200) {
           uni.showToast({ title: data.msg, icon: "none", duration: 2000 });
+          handleIsLogin(store);
         }
         resolve(result.data);
       },
@@ -38,12 +39,26 @@ const request = (config) => {
           title: err.errMsg,
           duration: 2000,
         });
+        handleIsLogin(store);
       },
       complete: () => {
         loading && uni.hideLoading();
       },
     });
   });
+};
+
+// 回到注册界面
+const handleIsLogin = (store) => {
+  const instance = getCurrentPages()[0];
+  if (!instance.route.includes("/login") && !store.token) {
+    uni.reLaunch({
+      url: "/pages/login/login",
+      success: () => {
+        uni.showToast({ title: "请重新登录！", icon: "none", duration: 2000 });
+      },
+    });
+  }
 };
 
 export default request;

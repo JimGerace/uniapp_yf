@@ -73,7 +73,6 @@
 <script setup>
 import { appStore } from "@/store/index.js";
 import { province_list, city_list } from "@/utils/area.js";
-import { uni } from "@dcloudio/uni-h5";
 import { ref, getCurrentInstance, onMounted } from "vue";
 
 const store = appStore();

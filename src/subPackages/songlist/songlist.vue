@@ -68,10 +68,10 @@ import Search from "@/components/Search/index.vue";
 import PlayTitle from "@/components/PlayTitle/index.vue";
 import MusicRow from "@/components/MusicRow/index.vue";
 import MenuOptions from "@/components/MenuOptions/index.vue";
-import { getCurrentInstance, onMounted, ref, computed } from "vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { getCurrentInstance, ref, computed } from "vue";
 
-const instance = getCurrentInstance();
-const _this = instance.appContext.config.globalProperties;
+const _this = getCurrentInstance().appContext.config.globalProperties;
 const showType = ref("");
 const showSearch = ref(false);
 const menuRef = ref(null);
@@ -83,14 +83,15 @@ const total = computed(() => {
   return songlist.value.length;
 });
 
-onMounted(() => {
-  init();
+onLoad((options) => {
+  const { id } = options;
+  init(id);
 });
 
 // 初始化
-const init = () => {
+const init = (id) => {
   const loading = uni.showLoading({ title: "加载中..." });
-  Promise.all([getDetailInfo(), getAllMusic()])
+  Promise.all([getDetailInfo(id), getAllMusic(id)])
     .then((result) => {
       const [deRes, allRes] = result;
 
@@ -128,13 +129,13 @@ const init = () => {
 };
 
 // 获取歌单详情
-const getDetailInfo = () => {
-  return _this.$api.PlayDetail({ id: instance.parent.attrs.id });
+const getDetailInfo = (id) => {
+  return _this.$api.PlayDetail({ id });
 };
 
 // 获取歌单所有歌曲
-const getAllMusic = () => {
-  return _this.$api.TrackAll({ id: instance.parent.attrs.id });
+const getAllMusic = (id) => {
+  return _this.$api.TrackAll({ id });
 };
 
 // 展示菜单列表对话框
