@@ -4,7 +4,11 @@
       <text class="index" v-if="index">{{ index }}</text>
       <view class="music_info">
         <text class="music_name">{{ row.songName }}</text>
-        <text class="artist">{{ row.artist }}</text>
+
+        <view class="song_info">
+          <text class="artist" v-if="row.artist">{{ row.artist }}</text>
+          <text class="album" v-if="row.album">-{{ row.album }}</text>
+        </view>
       </view>
     </view>
 
@@ -41,6 +45,7 @@ const toClickEvent = () => {
 
   .left {
     flex: 1;
+    overflow: hidden;
     display: flex;
     align-items: center;
     column-gap: 12rpx;
@@ -53,6 +58,7 @@ const toClickEvent = () => {
 
     .music_info {
       flex: 1;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
 
@@ -71,6 +77,23 @@ const toClickEvent = () => {
       .artist {
         color: #999;
         font-size: 24rpx;
+      }
+      .album {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #999;
+        font-size: 24rpx;
+      }
+
+      .song_info {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+        width: 100%;
       }
     }
   }

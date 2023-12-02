@@ -16,6 +16,7 @@
           v-for="(item, index) in filterList"
           :key="index"
           :row="item"
+          :index="index + 1"
           @clickEvent="showMenuPopup"
         />
       </view>

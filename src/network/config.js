@@ -6,8 +6,8 @@ const request = (config) => {
   const store = appStore();
   const { url, method, data, hideLoading } = config;
 
-  let loading = uni.showLoading({ title: "加载中..." });
-  hideLoading && (loading = null);
+  let loading = null;
+  !hideLoading && (loading = uni.showLoading({ title: "加载中..." }));
 
   const header = {
     "Content-Type": "application/json;charset=UTF-8",

@@ -89,6 +89,17 @@
           }
         }
       ]
+    },
+    {
+      "root": "subPackages/songlist",
+      "pages": [
+        {
+          "path": "songlist",
+          "style": {
+            "navigationBarTitleText": "歌单"
+          }
+        }
+      ]
     }
   ]
 }

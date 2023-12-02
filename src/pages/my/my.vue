@@ -52,7 +52,12 @@
         </view>
 
         <view class="list_box" v-if="showCollectList">
-          <view class="items" v-for="(item, index) in playList" :key="index">
+          <view
+            class="items"
+            @click="toPage(`/subPackages/songlist/songlist?id=${item.id}`)"
+            v-for="(item, index) in playList"
+            :key="index"
+          >
             <image
               class="icon_playlist"
               :src="item.coverImgUrl + '?param=120y120'"

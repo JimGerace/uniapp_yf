@@ -27,8 +27,30 @@ const RecentList = (data) => {
   });
 };
 
+// 歌单详情
+const PlayDetail = (data) => {
+  return api({
+    url: "/playlist/detail",
+    method: "GET",
+    data,
+    hideLoading: true,
+  });
+};
+
+// 歌单所有歌曲
+const TrackAll = (data) => {
+  return api({
+    url: "/playlist/track/all",
+    method: "GET",
+    data,
+    hideLoading: true,
+  });
+};
+
 export default {
   PlayList,
   CloudList,
   RecentList,
+  PlayDetail,
+  TrackAll,
 };
